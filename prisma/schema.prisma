@@ -7,8 +7,8 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  url       = "postgres://default:Pv3OjSK9Bwaq@ep-mute-tree-a2pyk5rd-pooler.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require&pgbouncer=true&connect_timeout=15"
+  directUrl = "postgres://default:Pv3OjSK9Bwaq@ep-mute-tree-a2pyk5rd.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require"
 }
 
 model users {
