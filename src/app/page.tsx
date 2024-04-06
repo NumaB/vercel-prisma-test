@@ -35,7 +35,7 @@ export default function Home() {
 
     if (parsed.success) {
       console.log("User registered");
-      const user = await prisma.users.create({
+      const createdUser = await prisma.users.create({
         data: {
           name: parsed.data.fullName,
           email: parsed.data.email,
@@ -43,7 +43,10 @@ export default function Home() {
             "https://images.ctfassets.net/e5382hct74si/4QEuVLNyZUg5X6X4cW4pVH/eb7cd219e21b29ae976277871cd5ca4b/profile.jpg",
         },
       });
-      return { message: "User registered", user };
+      return {
+        message: "User registered",
+        user: { fullName: createdUser.name, email: createdUser.email },
+      };
     } else {
       return {
         message: "Invalid data",
