@@ -1,13 +1,57 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import { Suspense } from 'react'
-import Table from '@/components/table'
-import TablePlaceholder from '@/components/table-placeholder'
-import ExpandingArrow from '@/components/expanding-arrow'
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import Table from "@/src/components/table";
+import TablePlaceholder from "@/src/components/table-placeholder";
+import ExpandingArrow from "@/src/components/expanding-arrow";
+import * as React from "react";
+import { RegistrationForm } from "../components/RegistrationForm";
+import { z } from "zod";
+import { schema } from "@/src/components/registrationSchema";
+import prisma from "@/lib/prisma";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 
 export default function Home() {
+  const onDataAction = async (data: z.infer<typeof schema>) => {
+    "use server";
+    const parsed = schema.safeParse(data);
+
+    if (parsed.success) {
+      console.log("User registered");
+      return { message: "User registered", user: parsed.data };
+    } else {
+      return {
+        message: "Invalid data",
+        issues: parsed.error.issues.map((issue) => issue.message),
+      };
+    }
+  };
+
+  const onFormAction = async (formData: FormData) => {
+    "use server";
+    const data = Object.fromEntries(formData);
+    const parsed = schema.safeParse(data);
+
+    if (parsed.success) {
+      console.log("User registered");
+      const user = await prisma.users.create({
+        data: {
+          name: parsed.data.fullName,
+          email: parsed.data.email,
+          image:
+            "https://images.ctfassets.net/e5382hct74si/4QEuVLNyZUg5X6X4cW4pVH/eb7cd219e21b29ae976277871cd5ca4b/profile.jpg",
+        },
+      });
+      return { message: "User registered", user };
+    } else {
+      return {
+        message: "Invalid data",
+        issues: parsed.error.issues.map((issue) => issue.message),
+      };
+    }
+  };
+
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
       <Link
@@ -23,21 +67,25 @@ export default function Home() {
       <Suspense fallback={<TablePlaceholder />}>
         <Table />
       </Suspense>
+      <RegistrationForm
+        onDataAction={onDataAction}
+        onFormAction={onFormAction}
+      />
       <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
         <Link
           href="https://vercel.com/postgres"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
         >
           Vercel Postgres
-        </Link>{' '}
-        demo with{' '}
+        </Link>{" "}
+        demo with{" "}
         <Link
           href="https://prisma.io"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
         >
           Prisma
-        </Link>{' '}
-        as the ORM. <br /> Built with{' '}
+        </Link>{" "}
+        as the ORM. <br /> Built with{" "}
         <Link
           href="https://nextjs.org/docs"
           className="font-medium underline underline-offset-4 hover:text-black transition-colors"
@@ -93,5 +141,5 @@ export default function Home() {
         </Link>
       </div>
     </main>
-  )
+  );
 }

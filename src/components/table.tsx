@@ -1,12 +1,12 @@
-import prisma from '@/lib/prisma'
-import { timeAgo } from '@/lib/utils'
-import Image from 'next/image'
-import RefreshButton from './refresh-button'
+import prisma from "@/lib/prisma";
+import Image from "next/image";
+import RefreshButton from "./refresh-button";
+import * as React from "react";
 
 export default async function Table() {
-  const startTime = Date.now()
-  const users = await prisma.users.findMany()
-  const duration = Date.now() - startTime
+  const startTime = Date.now();
+  const users = await prisma.users.findMany();
+  const duration = Date.now() - startTime;
 
   return (
     <div className="bg-white/30 p-12 shadow-xl ring-1 ring-gray-900/5 rounded-lg backdrop-blur-lg max-w-xl mx-auto w-full">
@@ -38,10 +38,9 @@ export default async function Table() {
                 <p className="text-sm text-gray-500">{user.email}</p>
               </div>
             </div>
-            <p className="text-sm text-gray-500">{timeAgo(user.createdAt)}</p>
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
