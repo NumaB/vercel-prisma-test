@@ -7,8 +7,9 @@ import ExpandingArrow from "@/src/components/expanding-arrow";
 import * as React from "react";
 import { RegistrationForm } from "../components/RegistrationForm";
 import { z } from "zod";
-import { schema } from "@/src/components/registrationSchema";
+import { chicagoSchema, schema } from "@/src/components/registrationSchema";
 import prisma from "@/lib/prisma";
+import { ChicagoRegistrationForm } from "../components/ChicagoRegistrationForm";
 
 export const dynamic = "force-dynamic";
 
@@ -39,13 +40,38 @@ export default function Home() {
         data: {
           name: parsed.data.fullName,
           email: parsed.data.email,
+          pseudonyme: parsed.data.pseudonyme,
           image:
             "https://images.ctfassets.net/e5382hct74si/4QEuVLNyZUg5X6X4cW4pVH/eb7cd219e21b29ae976277871cd5ca4b/profile.jpg",
         },
       });
       return {
         message: "User registered",
-        user: { fullName: createdUser.name, email: createdUser.email },
+        user: { fullName: createdUser.name, email: createdUser.email, pseudonyme: createdUser.pseudonyme },
+      };
+    } else {
+      return {
+        message: "Invalid data",
+        issues: parsed.error.issues.map((issue) => issue.message),
+      };
+    }
+  };
+
+  const onChicagoFormAction = async (formData: FormData) => {
+    "use server";
+    const data = Object.fromEntries(formData);
+    const parsed = chicagoSchema.safeParse(data);
+
+    if (parsed.success) {
+      console.log("Chicago registered");
+      const createdChicago = await prisma.chicago.create({
+        data: {
+          name: parsed.data.name,
+        },
+      });
+      return {
+        message: "User registered",
+        user: { name: createdChicago.name },
       };
     } else {
       return {
@@ -74,6 +100,7 @@ export default function Home() {
         onDataAction={onDataAction}
         onFormAction={onFormAction}
       />
+      <ChicagoRegistrationForm onFormAction={onChicagoFormAction} />
       <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
         <Link
           href="https://vercel.com/postgres"

@@ -3,7 +3,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { schema } from "./registrationSchema";
+import { chicagoSchema } from "./registrationSchema";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,29 +18,23 @@ import {
 } from "@/components/ui/form";
 
 interface Props {
-  onDataAction: (data: z.infer<typeof schema>) => Promise<{
-    message: string;
-    user?: z.infer<typeof schema>;
-    issues?: string[];
-  }>;
   onFormAction: (data: FormData) => Promise<{
     message: string;
-    user?: z.infer<typeof schema>;
+    chicago?: z.infer<typeof chicagoSchema>;
     issues?: string[];
   }>;
 }
 
-export const RegistrationForm = ({ onDataAction, onFormAction }: Props) => {
-  const form = useForm<z.infer<typeof schema>>({
+export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
+  const form = useForm<z.infer<typeof chicagoSchema>>({
     mode: "onChange",
-    resolver: zodResolver(schema),
+    resolver: zodResolver(chicagoSchema),
     defaultValues: {
-      fullName: "",
-      email: "",
+      name: ""
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof schema>) => {
+  const onSubmit = async (data: z.infer<typeof chicagoSchema>) => {
     // fetch("/api/register", {
     //     method: "POST",
     //     headers: {
@@ -65,9 +59,7 @@ export const RegistrationForm = ({ onDataAction, onFormAction }: Props) => {
     // console.log(await onDataAction(data));
 
     const formData = new FormData(); // Create a new FormData object
-    formData.append("fullName", data.fullName);
-    formData.append("email", data.email);
-    formData.append("pseudonyme", data.pseudonyme);
+    formData.append("name", data.name);
     console.log(await onFormAction(formData));
   };
 
@@ -76,7 +68,7 @@ export const RegistrationForm = ({ onDataAction, onFormAction }: Props) => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
-          name="fullName"
+          name="name"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Prénom Nom</FormLabel>
@@ -88,35 +80,6 @@ export const RegistrationForm = ({ onDataAction, onFormAction }: Props) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} />
-              </FormControl>
-              <FormDescription>Your email address.</FormDescription>
-              <FormMessage /> *
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="pseudonyme"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Pseudonyme</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} />
-              </FormControl>
-              <FormDescription>Your pseudonyme.</FormDescription>
-              <FormMessage /> *
-            </FormItem>
-          )}
-        />
-
         <Button type="submit">Submit</Button>
       </form>
     </Form>
