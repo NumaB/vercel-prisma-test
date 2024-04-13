@@ -9,6 +9,7 @@
     "build": "prisma generate && prisma db push && prisma db seed && next build",
     "start": "next start",
     "lint": "next lint",
+    "typings": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\"",
     "ciformat": "prettier --list-different \"src/**/*.ts\" \"src/**/*.tsx\""
   },
