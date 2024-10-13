@@ -13,8 +13,15 @@ import { ChicagoRegistrationForm } from "../components/ChicagoRegistrationForm";
 
 export const dynamic = "force-dynamic";
 
+export type formState = {
+  message: string;
+  user?: z.infer<typeof schema>;
+  issues?: string[];
+};
+
 export default function Home() {
   const onDataAction = async (data: z.infer<typeof schema>) => {
+    // use server indique à Next.js qu'il s'agit d'une fonction serveur uniquement
     "use server";
     const parsed = schema.safeParse(data);
 
@@ -29,7 +36,7 @@ export default function Home() {
     }
   };
 
-  const onFormAction = async (formData: FormData) => {
+  const onFormAction = async (prevState: formState, formData: FormData) => {
     "use server";
     const data = Object.fromEntries(formData);
     const parsed = schema.safeParse(data);
@@ -47,7 +54,11 @@ export default function Home() {
       });
       return {
         message: "User registered",
-        user: { fullName: createdUser.name, email: createdUser.email, pseudonyme: createdUser.pseudonyme },
+        user: {
+          fullName: createdUser.name,
+          email: createdUser.email,
+          pseudonyme: createdUser.pseudonyme,
+        },
       };
     } else {
       return {
