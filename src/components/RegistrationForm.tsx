@@ -22,7 +22,7 @@ interface Props {
   onFormAction: (prevState: formState, data: FormData) => Promise<formState>
 }
 
-export const RegistrationForm = ({ onDataAction, onFormAction }: Props) => {
+export const RegistrationForm = ({ onFormAction }: Props) => {
   // useFormState prend une action et un état initial en paramètre
   // useFormState rend un state et une "action client" prête à l'emploi par <form>
   const [state, formAction] = useFormState(onFormAction, {
@@ -42,37 +42,37 @@ export const RegistrationForm = ({ onDataAction, onFormAction }: Props) => {
 
   const formRef = useRef<HTMLFormElement>(null)
 
-  const onSubmit = async (data: z.infer<typeof schema>) => {
-    // Envoi de la réponse formulaire via api POST format json
-    // fetch("/api/register", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify(data)
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => console.log(data))
-    // Envoi de la réponse formulaire via api POST format form
-    // const formData = new FormData(); // Create a new FormData object
-    // formData.append("fullName", data.fullName)
-    // formData.append("email", data.email)
-    // fetch("/api/registerForm", {
-    //     method: "POST",
-    //     body: formData
-    //   })
-    //   .then(response => response.json())
-    //   .then(data => console.log(data))
-    // Utilisation de l'action serveur avec les données "brutes"
-    // console.log(await onDataAction(data));
-    // Utilisation de l'action serveur avec les données au format form
-    // Version sans prevState
-    // const formData = new FormData(); // Create a new FormData object
-    // formData.append("fullName", data.fullName);
-    // formData.append("email", data.email);
-    // formData.append("pseudonyme", data.pseudonyme);
-    // console.log(await onFormAction(formData));
-  }
+  // const onSubmit = async (data: z.infer<typeof schema>) => {
+  //   Envoi de la réponse formulaire via api POST format json
+  //   fetch("/api/register", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json"
+  //       },
+  //       body: JSON.stringify(data)
+  //     })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //   Envoi de la réponse formulaire via api POST format form
+  //   const formData = new FormData(); // Create a new FormData object
+  //   formData.append("fullName", data.fullName)
+  //   formData.append("email", data.email)
+  //   fetch("/api/registerForm", {
+  //       method: "POST",
+  //       body: formData
+  //     })
+  //     .then(response => response.json())
+  //     .then(data => console.log(data))
+  //   Utilisation de l'action serveur avec les données "brutes"
+  //   console.log(await onDataAction(data));
+  //   Utilisation de l'action serveur avec les données au format form
+  //   Version sans prevState
+  //   const formData = new FormData(); // Create a new FormData object
+  //   formData.append("fullName", data.fullName);
+  //   formData.append("email", data.email);
+  //   formData.append("pseudonyme", data.pseudonyme);
+  //   console.log(await onFormAction(formData));
+  // }
 
   return (
     // ...form donne tous les contrôles de useForm à notre <Form >

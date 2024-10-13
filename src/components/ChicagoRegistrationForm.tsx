@@ -1,38 +1,30 @@
 // inside of src/app/RegistrationForm.tsx
-"use client";
+"use client"
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { chicagoSchema } from "./registrationSchema";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { chicagoSchema } from "./registrationSchema"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 
 interface Props {
   onFormAction: (data: FormData) => Promise<{
-    message: string;
-    chicago?: z.infer<typeof chicagoSchema>;
-    issues?: string[];
-  }>;
+    message: string
+    chicago?: z.infer<typeof chicagoSchema>
+    issues?: string[]
+  }>
 }
 
-export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
+export const ChicagoRegistrationForm = ({}: Props) => {
   const form = useForm<z.infer<typeof chicagoSchema>>({
     mode: "onChange",
     resolver: zodResolver(chicagoSchema),
     defaultValues: {
       name: "",
     },
-  });
+  })
 
   const onSubmit = async (data: z.infer<typeof chicagoSchema>) => {
     // fetch("/api/register", {
@@ -58,10 +50,10 @@ export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
 
     // console.log(await onDataAction(data));
 
-    const formData = new FormData(); // Create a new FormData object
-    formData.append("name", data.name);
-    console.log(await onFormAction(formData));
-  };
+    const formData = new FormData() // Create a new FormData object
+    formData.append("name", data.name)
+    // console.log(await onFormAction(formData));
+  }
 
   return (
     <Form {...form}>
@@ -83,5 +75,5 @@ export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  );
-};
+  )
+}

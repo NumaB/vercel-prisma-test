@@ -26,7 +26,6 @@ export default function Home() {
     const parsed = schema.safeParse(data)
 
     if (parsed.success) {
-      console.log("User registered")
       return { message: "User registered", user: parsed.data }
     } else {
       return {
@@ -42,7 +41,6 @@ export default function Home() {
     const parsed = schema.safeParse(data)
 
     if (parsed.success) {
-      console.log("User registered")
       const createdUser = await prisma.users.create({
         data: {
           name: parsed.data.fullName,
@@ -74,7 +72,6 @@ export default function Home() {
     const parsed = chicagoSchema.safeParse(data)
 
     if (parsed.success) {
-      console.log("Chicago registered")
       const createdChicago = await prisma.chicago.create({
         data: {
           name: parsed.data.name,

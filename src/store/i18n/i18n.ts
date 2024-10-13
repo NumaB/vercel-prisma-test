@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { initReactI18next } from "react-i18next"
 import { I18nState } from "./types"
 import { format as dateFormat } from "date-fns/format"
