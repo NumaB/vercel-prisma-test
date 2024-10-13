@@ -1,11 +1,11 @@
-import MainMenu from "@layout/Menu"
+import MainLayout from "@layout/MainLayout"
 import * as React from "react"
 
-const FormHome = () => {
+const Main = () => {
   return (
     <div>
-      <MainMenu />
+      <MainLayout />
     </div>
   )
 }
-export default FormHome
+export default Main

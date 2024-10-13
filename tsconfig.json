@@ -24,6 +24,7 @@
       "@layout/*": ["src/layout/*"],
       "@app/*": ["src/app/*"],
       "@components/*": ["src/components/*"],
+      "@store/*": ["src/store/*"],
       "@src/*": ["src/*"],
       "@/*": ["./*"]
     }
