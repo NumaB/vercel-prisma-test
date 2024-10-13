@@ -11,7 +11,7 @@ import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { formState } from "../app/page_old"
+import { formState } from "../app/page"
 
 interface Props {
   onDataAction: (data: z.infer<typeof schema>) => Promise<{
