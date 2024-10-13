@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// Schema de notre formulaire
 export const schema = z.object({
   fullName: z.string().trim().min(2, {
     message: "Veuillez renseigner votre nom complet",

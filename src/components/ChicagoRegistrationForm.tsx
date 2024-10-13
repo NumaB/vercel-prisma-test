@@ -30,7 +30,7 @@ export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
     mode: "onChange",
     resolver: zodResolver(chicagoSchema),
     defaultValues: {
-      name: ""
+      name: "",
     },
   });
 
