@@ -1,5 +1,5 @@
+import MainMenu from "@layout/Menu"
 import * as React from "react"
-import MainMenu from "../layout/Menu"
 
 const FormHome = () => {
   return (
