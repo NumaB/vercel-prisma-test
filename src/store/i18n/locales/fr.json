@@ -1,6 +1,15 @@
 {
   "layout": {
-    "mainMenu":{
+    "menu": {
+      "items": {
+        "forms": "Formulaires",
+        "serverComponents": "Composants serveur",
+        "ressources": "Ressources"
+      },
+      "submenu": {
+        "withoutAction": "Formulaires sans action",
+        "withAction": "Formulaires avec action"
+      },
       "title": "Bonjour Menu"
     }
   },
