@@ -25,7 +25,7 @@ interface Props {
   }>;
 }
 
-export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
+export const ChicagoRegistrationForm = ({}: Props) => {
   const form = useForm<z.infer<typeof chicagoSchema>>({
     mode: "onChange",
     resolver: zodResolver(chicagoSchema),
@@ -60,7 +60,7 @@ export const ChicagoRegistrationForm = ({ onFormAction }: Props) => {
 
     const formData = new FormData(); // Create a new FormData object
     formData.append("name", data.name);
-    console.log(await onFormAction(formData));
+    // console.log(await onFormAction(formData));
   };
 
   return (

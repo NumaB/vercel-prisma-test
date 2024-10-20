@@ -1,5 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
+import MainLayout from "@layout/MainLayout";
+import { ConfigProvider } from "antd";
+import { MenuStyles } from "@layout/Menu";
 
 export const metadata = {
   metadataBase: new URL("https://postgres-prisma.vercel.app"),
@@ -21,7 +24,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.variable}>{children}</body>
+      <body className={inter.variable}>
+        <ConfigProvider
+          theme={{
+            components: {
+              Menu: MenuStyles,
+            },
+          }}
+        >
+          <MainLayout children={children} />
+        </ConfigProvider>
+      </body>
     </html>
   );
 }
