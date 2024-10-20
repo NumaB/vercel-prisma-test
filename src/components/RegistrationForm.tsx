@@ -1,25 +1,33 @@
 // inside of src/app/RegistrationForm.tsx
-"use client"
+"use client";
 
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 
-import { useFormState } from "react-dom"
-import { useRef } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { schema } from "./registrationSchema"
-import { z } from "zod"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { formState } from "../app/page_old"
+import { useFormState } from "react-dom";
+import { useRef } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schema } from "./registrationSchema";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { formState } from "../app/page_old";
 
 interface Props {
   onDataAction: (data: z.infer<typeof schema>) => Promise<{
-    message: string
-    user?: z.infer<typeof schema>
-    issues?: string[]
-  }>
-  onFormAction: (prevState: formState, data: FormData) => Promise<formState>
+    message: string;
+    user?: z.infer<typeof schema>;
+    issues?: string[];
+  }>;
+  onFormAction: (prevState: formState, data: FormData) => Promise<formState>;
 }
 
 export const RegistrationForm = ({ onFormAction }: Props) => {
@@ -27,7 +35,7 @@ export const RegistrationForm = ({ onFormAction }: Props) => {
   // useFormState rend un state et une "action client" prête à l'emploi par <form>
   const [state, formAction] = useFormState(onFormAction, {
     message: "",
-  })
+  });
 
   // z.infer permet de typer les default values avec le type inféré du "schema"
   const form = useForm<z.infer<typeof schema>>({
@@ -38,9 +46,9 @@ export const RegistrationForm = ({ onFormAction }: Props) => {
       fullName: "",
       email: "",
     },
-  })
+  });
 
-  const formRef = useRef<HTMLFormElement>(null)
+  const formRef = useRef<HTMLFormElement>(null);
 
   // const onSubmit = async (data: z.infer<typeof schema>) => {
   //   Envoi de la réponse formulaire via api POST format json
@@ -133,5 +141,5 @@ export const RegistrationForm = ({ onFormAction }: Props) => {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  )
-}
+  );
+};

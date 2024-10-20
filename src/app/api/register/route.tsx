@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 // Possibilité de tester la bonne validation via curl
 // Ex: curl -X POST http://localhost:3000/api/register -d "{}" -H 'Content-Type: application/json'
 export async function POST(req: NextRequest) {
-
   // Récupération des données du body sous forme de json
   const data = await req.json();
 

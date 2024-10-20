@@ -1,8 +1,8 @@
-import * as React from "react"
-import MainMenu from "./Menu"
+import * as React from "react";
+import MainMenu from "./Menu";
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const MainLayout = ({ children }: Props) => {
@@ -14,6 +14,6 @@ const MainLayout = ({ children }: Props) => {
       </div>
       <main className="py-10 lg:pl-72">{children}</main>
     </div>
-  )
-}
-export default MainLayout
+  );
+};
+export default MainLayout;

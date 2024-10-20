@@ -1,44 +1,44 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Suspense } from "react"
-import Table from "@/src/components/table"
-import TablePlaceholder from "@/src/components/table-placeholder"
-import ExpandingArrow from "@/src/components/expanding-arrow"
-import * as React from "react"
-import { RegistrationForm } from "../components/RegistrationForm"
-import { z } from "zod"
-import { chicagoSchema, schema } from "@/src/components/registrationSchema"
-import prisma from "@/lib/prisma"
-import { ChicagoRegistrationForm } from "@/src/components/ChicagoRegistrationForm"
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import Table from "@/src/components/table";
+import TablePlaceholder from "@/src/components/table-placeholder";
+import ExpandingArrow from "@/src/components/expanding-arrow";
+import * as React from "react";
+import { RegistrationForm } from "../components/RegistrationForm";
+import { z } from "zod";
+import { chicagoSchema, schema } from "@/src/components/registrationSchema";
+import prisma from "@/lib/prisma";
+import { ChicagoRegistrationForm } from "@/src/components/ChicagoRegistrationForm";
 
-export const dynamic = "force-dynamic"
+export const dynamic = "force-dynamic";
 
 export type formState = {
-  message: string
-  user?: z.infer<typeof schema>
-  issues?: string[]
-}
+  message: string;
+  user?: z.infer<typeof schema>;
+  issues?: string[];
+};
 
 export default function Home() {
   const onDataAction = async (data: z.infer<typeof schema>) => {
     // use server indique à Next.js qu'il s'agit d'une fonction serveur uniquement
-    "use server"
-    const parsed = schema.safeParse(data)
+    "use server";
+    const parsed = schema.safeParse(data);
 
     if (parsed.success) {
-      return { message: "User registered", user: parsed.data }
+      return { message: "User registered", user: parsed.data };
     } else {
       return {
         message: "Invalid data",
         issues: parsed.error.issues.map((issue) => issue.message),
-      }
+      };
     }
-  }
+  };
 
   const onFormAction = async (prevState: formState, formData: FormData) => {
-    "use server"
-    const data = Object.fromEntries(formData)
-    const parsed = schema.safeParse(data)
+    "use server";
+    const data = Object.fromEntries(formData);
+    const parsed = schema.safeParse(data);
 
     if (parsed.success) {
       const createdUser = await prisma.users.create({
@@ -49,7 +49,7 @@ export default function Home() {
           image:
             "https://images.ctfassets.net/e5382hct74si/4QEuVLNyZUg5X6X4cW4pVH/eb7cd219e21b29ae976277871cd5ca4b/profile.jpg",
         },
-      })
+      });
       return {
         message: "User registered",
         user: {
@@ -57,37 +57,37 @@ export default function Home() {
           email: createdUser.email,
           pseudonyme: createdUser.pseudonyme,
         },
-      }
+      };
     } else {
       return {
         message: "Invalid data",
         issues: parsed.error.issues.map((issue) => issue.message),
-      }
+      };
     }
-  }
+  };
 
   const onChicagoFormAction = async (formData: FormData) => {
-    "use server"
-    const data = Object.fromEntries(formData)
-    const parsed = chicagoSchema.safeParse(data)
+    "use server";
+    const data = Object.fromEntries(formData);
+    const parsed = chicagoSchema.safeParse(data);
 
     if (parsed.success) {
       const createdChicago = await prisma.chicago.create({
         data: {
           name: parsed.data.name,
         },
-      })
+      });
       return {
         message: "User registered",
         user: { name: createdChicago.name },
-      }
+      };
     } else {
       return {
         message: "Invalid data",
         issues: parsed.error.issues.map((issue) => issue.message),
-      }
+      };
     }
-  }
+  };
 
   return (
     <main className="relative flex min-h-screen flex-col items-center justify-center">
@@ -104,7 +104,10 @@ export default function Home() {
       <Suspense fallback={<TablePlaceholder />}>
         <Table />
       </Suspense>
-      <RegistrationForm onDataAction={onDataAction} onFormAction={onFormAction} />
+      <RegistrationForm
+        onDataAction={onDataAction}
+        onFormAction={onFormAction}
+      />
       <ChicagoRegistrationForm onFormAction={onChicagoFormAction} />
       <p className="font-light text-gray-600 w-full max-w-lg text-center mt-6">
         <Link
@@ -153,16 +156,28 @@ export default function Home() {
 
       <div className="sm:absolute sm:bottom-0 w-full px-20 py-10 flex justify-between">
         <Link href="https://vercel.com">
-          <Image src="/vercel.svg" alt="Vercel Logo" width={100} height={24} priority />
+          <Image
+            src="/vercel.svg"
+            alt="Vercel Logo"
+            width={100}
+            height={24}
+            priority
+          />
         </Link>
         <Link
           href="https://github.com/vercel/examples/tree/main/storage/postgres-prisma"
           className="flex items-center space-x-2"
         >
-          <Image src="/github.svg" alt="GitHub Logo" width={24} height={24} priority />
+          <Image
+            src="/github.svg"
+            alt="GitHub Logo"
+            width={24}
+            height={24}
+            priority
+          />
           <p className="font-light">Source</p>
         </Link>
       </div>
     </main>
-  )
+  );
 }

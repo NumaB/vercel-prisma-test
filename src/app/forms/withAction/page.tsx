@@ -1,10 +1,10 @@
-import * as React from "react"
+import * as React from "react";
 
 const WithAction = () => {
   return (
     <div>
       <p>Bonjour Form with action</p>
     </div>
-  )
-}
-export default WithAction
+  );
+};
+export default WithAction;

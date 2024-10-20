@@ -1,38 +1,41 @@
-import { createEvent, Store } from "effector"
+import { createEvent, Store } from "effector";
 
 type PersistConfig = {
-  key?: string
-  expire?: number
-}
+  key?: string;
+  expire?: number;
+};
 
 const defaultConfig = {
   key: "persist",
-}
+};
 
-export const withPersist = <State>(store: Store<State>, config: PersistConfig = defaultConfig) => {
-  const name = store.shortName
-  const { key, expire } = config
-  const persistKey = `${key}:${name}`
-  const rehydrate = createEvent("@PERSIST/REHYDRATE")
+export const withPersist = <State>(
+  store: Store<State>,
+  config: PersistConfig = defaultConfig,
+) => {
+  const name = store.shortName;
+  const { key, expire } = config;
+  const persistKey = `${key}:${name}`;
+  const rehydrate = createEvent("@PERSIST/REHYDRATE");
 
   if (typeof window !== "undefined") {
     if (expire && isExpired(expire)) {
-      localStorage.removeItem(persistKey)
+      localStorage.removeItem(persistKey);
     }
 
-    const snapshot = localStorage.getItem(persistKey)
+    const snapshot = localStorage.getItem(persistKey);
 
     if (snapshot) {
-      store.on(rehydrate, () => JSON.parse(snapshot))
-      rehydrate()
+      store.on(rehydrate, () => JSON.parse(snapshot));
+      rehydrate();
     }
 
     store.watch((state) => {
-      localStorage.setItem(persistKey, JSON.stringify(state))
-    })
+      localStorage.setItem(persistKey, JSON.stringify(state));
+    });
   }
 
-  return store
-}
+  return store;
+};
 
-const isExpired = (expire: number) => expire < Date.now()
+const isExpired = (expire: number) => expire < Date.now();
