@@ -16,41 +16,18 @@ const config = {
       colors: {
         // Configurations manuelles
         "main-purple": "#764abc",
+        "secondary-purple": "#491d90",
 
-        // Configurations de couleurs présentes par défaut
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        "primary-blue": "#0077bb",
+        "secondary-blue": "#40a3dc",
+        "dark-blue": "#1d3563",
+
+        "primaryt-red": "#FF4D4F",
+        "dark-red": "#b53d29",
+
+        "primary-green": "#16A34A",
+
+        "primary-yellow": "#FFA940",
       },
       borderRadius: {
         lg: "var(--radius)",

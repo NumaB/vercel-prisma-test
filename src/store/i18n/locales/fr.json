@@ -2,6 +2,7 @@
   "layout": {
     "menu": {
       "items": {
+        "home": "Accueil",
         "forms": "Formulaires",
         "serverComponents": "Composants serveur",
         "ressources": "Ressources"
@@ -9,8 +10,7 @@
       "submenu": {
         "withoutAction": "Formulaires sans action",
         "withAction": "Formulaires avec action"
-      },
-      "title": "Bonjour Menu"
+      }
     }
   },
   "common": {
