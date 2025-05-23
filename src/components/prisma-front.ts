@@ -1,6 +1,7 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     interface Global {
       prisma: PrismaClient;
@@ -22,5 +23,5 @@ if (typeof window === "undefined") {
   }
 }
 
-// @ts-ignore
+// @ts-expect-error: error expected period
 export default prisma;
