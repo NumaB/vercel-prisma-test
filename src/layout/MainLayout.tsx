@@ -12,7 +12,9 @@ const MainLayout = ({ children }: Props) => {
         {/* Sidebar component */}
         <MainMenu />
       </div>
-      <main className="py-10 lg:pl-72">{children}</main>
+      <main className="py-10 lg:pl-72">
+        <div className="px-4">{children}</div>
+      </main>
     </div>
   );
 };
